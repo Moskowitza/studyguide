@@ -1,5 +1,7 @@
 <script>
   export let question;
+  export let nextQuestion;
+  export let addToScore;
   let isCorrect;
   let isAnswered = false;
   export let count = 0;
@@ -19,7 +21,9 @@
   function checkQuestion(ans) {
     isAnswered = true;
     isCorrect = ans;
-
+    if (ans) {
+      addToScore();
+    }
     count++;
   }
 </script>
@@ -27,11 +31,16 @@
 <style>
   button {
     display: inline;
-    padding: 0;
-    padding: 2em;
+    height: 4em;
   }
-  button:hover {
-    background: lightgrey;
+  .isCorrect {
+    color: green;
+  }
+  .wrong {
+    color: red;
+  }
+  h5:after {
+    content: "\200b";
   }
   .answer_continer {
     display: grid;
@@ -43,15 +52,22 @@
 <h3>
   {@html question.question}
 </h3>
-{#if isAnswered}
-  <h4>
+<h5 class={isCorrect ? 'correct' : 'wrong'}>
+  {#if isAnswered}
     {#if isCorrect}You got that one right{:else}WRONG!!!!{/if}
-  </h4>
-{/if}
+  {/if}
+</h5>
 <div class="answer_continer">
   {#each allAnswers as answer}
-    <button on:click={() => checkQuestion(answer.correct)}>
+    <button
+      class:isCorrect={answer.correct && isAnswered}
+      on:click={() => checkQuestion(answer.correct)}>
       {@html answer.answer}
     </button>
   {/each}
+  {#if isAnswered}
+    <div>
+      <button on:click={nextQuestion}>next</button>
+    </div>
+  {/if}
 </div>
