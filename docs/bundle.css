@@ -1,0 +1,55 @@
+body {
+  background: hsla(0, 0%, 0%, 0.8);
+}
+h1.svelte-1rjkjcv {
+  color: white;
+  text-align: center;
+}
+div.svelte-1rjkjcv {
+  background: white;
+  border-radius: 15px;
+  padding: 40px;
+}
+h4.svelte-1hgpycz {
+  color: purple;
+}
+.fade-wrapper.svelte-1hgpycz {
+  position: absolute;
+}
+.container.svelte-1hgpycz {
+  min-height: 500px;
+}
+button.svelte-1erj4fi {
+  height: 4em;
+  margin: 0.5rem;
+  padding: 0.5rem;
+}
+.isCorrect.svelte-1erj4fi {
+  color: green;
+}
+.wrong.svelte-1erj4fi {
+  color: red;
+}
+h5.svelte-1erj4fi:after {
+  content: "\200b";
+}
+.answer_continer.svelte-1erj4fi {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  max-width: 500px;
+}
+.modal-bg.svelte-t45nk0 {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+}
+.modal-bg.svelte-t45nk0 .modal.svelte-t45nk0 {
+  background: white;
+  padding: 20px;
+  border-radius: 15px;
+}
+
+/*# sourceMappingURL=bundle.css.map */
