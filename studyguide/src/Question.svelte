@@ -1,7 +1,8 @@
 <script>
+  import { score } from "./store.js";
+
   export let question;
   export let nextQuestion;
-  export let addToScore;
   let isCorrect;
   let isAnswered = false;
   export let count = 0;
@@ -22,7 +23,7 @@
     isAnswered = true;
     isCorrect = ans;
     if (ans) {
-      addToScore();
+      score.update(val => val + 1);
     }
     count++;
   }
@@ -30,8 +31,9 @@
 
 <style>
   button {
-    display: inline;
     height: 4em;
+    margin: 0.5rem;
+    padding: 0.5rem;
   }
   .isCorrect {
     color: green;
@@ -45,7 +47,7 @@
   .answer_continer {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    max-width: 350px;
+    max-width: 500px;
   }
 </style>
 

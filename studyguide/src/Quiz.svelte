@@ -3,8 +3,8 @@
   import { onMount, beforeUpdate, afterUpdate, onDestroy } from "svelte";
   import Question from "./Question.svelte";
   import Modal from "./Modal.svelte";
+  import { score } from "./store.js";
   let activeQuestion = 0;
-  let score = 0;
   let quiz = getQuiz();
   let isModalOpen = false;
   onMount(() => {});
@@ -28,14 +28,11 @@
   function resetQuiz() {
     isModalOpen = false;
     activeQuestion = 0;
-    score = 0;
+    score.set(0);
     quiz = getQuiz();
   }
-  function addToScore() {
-    score = score + 1;
-  }
 
-  $: if (score > 1) {
+  $: if ($score > 8) {
     //TODO Switch to an animation
     isModalOpen = true;
   }
@@ -49,24 +46,28 @@
   .fade-wrapper {
     position: absolute;
   }
+  .container {
+    min-height: 500px;
+  }
 </style>
 
 <div>
-  <h4>Score: {score}</h4>
+  <h4>Score: {$score}</h4>
   <h4>Question {questionNumber}</h4>
   <button on:click={resetQuiz}>Start New Quiz</button>
-  {#await quiz}
-    loading
-  {:then data}
-    {#each data.results as question, index}
-      {#if index === activeQuestion}
-        <div in:fly={{ x: 200 }} out:fly={{ x: -200 }} class="fade-wrapper">
-          <Question {question} {addToScore} {nextQuestion} />
-        </div>
-      {/if}
-    {/each}
-  {/await}
-
+  <div class="container">
+    {#await quiz}
+      loading
+    {:then data}
+      {#each data.results as question, index}
+        {#if index === activeQuestion}
+          <div in:fly={{ x: 200 }} out:fly={{ x: -200 }} class="fade-wrapper">
+            <Question {question} {nextQuestion} />
+          </div>
+        {/if}
+      {/each}
+    {/await}
+  </div>
 </div>
 {#if isModalOpen}
   <Modal on:close={resetQuiz}>
